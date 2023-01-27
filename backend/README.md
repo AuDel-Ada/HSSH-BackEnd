@@ -12,5 +12,8 @@ Ex : HSSH-2-[Front]Feat/Template-Home-Page
    - npm install
    - npm run dev
 
-# TO BE REVIEWED
-    - check the CLI npm run lint-fix
+# BE CAREFULL TO RUN ESLINT TO CHECK YOUR CODE !
+    - npm run lint
+    - npm run lint-fix
+
+# AND TO FORMAT YOUR DOCUMENT BY PRETTIER !
