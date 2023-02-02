@@ -3,6 +3,10 @@ name: entry-point-ci
 on: 
   push:
     branches: 
+<<<<<<< HEAD
+=======
+      - main
+>>>>>>> 7bcd0ee (first workflow)
       - dev
       - "HSSH-**"
   pull_request:
@@ -30,6 +34,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     
     - name: Install dependencies
+<<<<<<< HEAD
       run: npm ci
     
     - name: JS quality
@@ -40,3 +45,6 @@ jobs:
     
     # - name: Test
     #   run: npm test
+=======
+      run: npm ci
+>>>>>>> 7bcd0ee (first workflow)
