@@ -3,7 +3,6 @@ name: entry-point-ci
 on: 
   push:
     branches: 
-      - main
       - dev
       - "HSSH-**"
   pull_request:
@@ -32,3 +31,12 @@ jobs:
     
     - name: Install dependencies
       run: npm ci
+    
+    - name: JS quality
+      run: npm run lint-fix
+
+    - name: Build
+      run: npm run build
+    
+    # - name: Test
+    #   run: npm test
