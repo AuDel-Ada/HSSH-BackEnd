@@ -1,24 +1,30 @@
 import express from 'express';
 import http from 'http';
 import mongoose from 'mongoose';
-import { config } from '../config/config';
-import Logging from '../library/logging';
+import { config } from './config/config';
+import Logging from './library/logging';
+import artistRoutes from './routes/Artist';
 
 const router = express();
 
-// Connect to the Mongo DDB
-mongoose
-  .connect(config.mongo.url, { retryWrites: true, w: 'majority' })
-  .then(() => {
+// Connect to MongoDB
+const connectDB = async () => {
+  try {
+    await mongoose.connect(config.mongo.url, {
+      retryWrites: true,
+      w: 'majority',
+    });
     Logging.info('Connected to mongoDB');
     StartServer();
-  })
-  .catch((error) => {
+  } catch (error) {
     Logging.error('Unable to connect:');
     Logging.error(error);
-  });
+  }
+};
 
-// Only start the server if Mongo Connnects
+connectDB();
+
+// Only start the server if Mongo Connects
 const StartServer = () => {
   router.use((req, res, next) => {
     //Log the request
@@ -59,13 +65,9 @@ const StartServer = () => {
   });
 
   //Routes
+  router.use('/artists', artistRoutes);
 
-  //Healthcheck
-  router.get('/ping', (req, res) => {
-    res.status(200).json({ message: 'pong' });
-  });
-
-  //Error Handlingß
+  //Error Handling
   router.use((req, res) => {
     const error = new Error('not found');
     Logging.error(error);
