@@ -26,5 +26,4 @@ const ArtistSchema: Schema = new Schema(
   }
 );
 
-
 export default mongoose.model<IArtistModel>('Artist', ArtistSchema);
