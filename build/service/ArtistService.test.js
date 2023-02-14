@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Artist_1 = __importDefault(require("../model/Artist"));
 const ArtistService_1 = require("./ArtistService");
+const bcrypt_1 = __importDefault(require("bcrypt"));
 describe('Artist Service', () => {
     const artistExample = [
         {
@@ -32,6 +33,8 @@ describe('Artist Service', () => {
             email: 'cc@dd.com',
             password: '5678',
             gender: 'Male',
+            bio: 'foo',
+            nationality: 'usa',
             smartContractNumber: ['0xdeadbeef2', '0xdeadbeef3'],
         },
     ];
@@ -96,9 +99,87 @@ describe('Artist Service', () => {
         expect(res === null || res === void 0 ? void 0 : res.name).toEqual(artistExample[1].name);
         expect(res === null || res === void 0 ? void 0 : res.email).toEqual(artistExample[1].email);
         expect(res === null || res === void 0 ? void 0 : res.password).toEqual(artistExample[1].password);
-        expect(res === null || res === void 0 ? void 0 : res.gender).toBeUndefined();
+        expect(res === null || res === void 0 ? void 0 : res.gender).toEqual(artistExample[1].gender);
         expect(res === null || res === void 0 ? void 0 : res.bio).toEqual(artistExample[1].bio);
         expect(res === null || res === void 0 ? void 0 : res.nationality).toEqual('fr');
         expect(res === null || res === void 0 ? void 0 : res.smartContractNumber).toEqual(artistExample[1].smartContractNumber);
+    }));
+    test('Add a smart contract number', () => __awaiter(void 0, void 0, void 0, function* () {
+        //given
+        jest.spyOn(Artist_1.default, 'findById').mockReturnValue(artistExample[1]);
+        jest.spyOn(Artist_1.default, 'updateOne').mockReturnValue({});
+        //when
+        const res = yield (0, ArtistService_1.updateOneArtist)('id', {
+            smartContractNumber: ['0xdeadbeef4']
+        });
+        //then
+        expect(res === null || res === void 0 ? void 0 : res.name).toEqual(artistExample[1].name);
+        expect(res === null || res === void 0 ? void 0 : res.email).toEqual(artistExample[1].email);
+        expect(res === null || res === void 0 ? void 0 : res.password).toEqual(artistExample[1].password);
+        expect(res === null || res === void 0 ? void 0 : res.gender).toEqual(artistExample[1].gender);
+        expect(res === null || res === void 0 ? void 0 : res.bio).toEqual(artistExample[1].bio);
+        expect(res === null || res === void 0 ? void 0 : res.nationality).toEqual(artistExample[1].nationality);
+        expect(res === null || res === void 0 ? void 0 : res.smartContractNumber).toEqual([
+            '0xdeadbeef2',
+            '0xdeadbeef3',
+            '0xdeadbeef4',
+        ]);
+    }));
+    test('Update bio', () => __awaiter(void 0, void 0, void 0, function* () {
+        //given
+        jest.spyOn(Artist_1.default, 'findById').mockReturnValue(artistExample[1]);
+        jest.spyOn(Artist_1.default, 'updateOne').mockReturnValue({});
+        //when
+        const res = yield (0, ArtistService_1.updateOneArtist)('id', {
+            bio: 'blablabla',
+        });
+        //then
+        expect(res === null || res === void 0 ? void 0 : res.name).toEqual(artistExample[1].name);
+        expect(res === null || res === void 0 ? void 0 : res.email).toEqual(artistExample[1].email);
+        expect(res === null || res === void 0 ? void 0 : res.password).toEqual(artistExample[1].password);
+        expect(res === null || res === void 0 ? void 0 : res.gender).toEqual(artistExample[1].gender);
+        expect(res === null || res === void 0 ? void 0 : res.bio).toEqual('blablabla');
+        expect(res === null || res === void 0 ? void 0 : res.nationality).toEqual(artistExample[1].nationality);
+        expect(res === null || res === void 0 ? void 0 : res.smartContractNumber).toEqual(artistExample[1].smartContractNumber);
+    }));
+    test('Create Artist', () => __awaiter(void 0, void 0, void 0, function* () {
+        //given
+        jest.spyOn(bcrypt_1.default, 'hash').mockReturnValue(artistExample[0].password);
+        // jest.spyOn(Artist, 'save').mockReturnValue({} as any);
+        //when
+        const res = yield (0, ArtistService_1.createArtist)({
+            name: 'aurelie',
+            email: 'qwerty@gm.com',
+            password: '0987',
+            gender: 'female',
+            bio: 'blablabla',
+            nationality: 'fr',
+            smartContractNumber: ['0xdeadbeef6']
+        });
+        //then
+        expect(res === null || res === void 0 ? void 0 : res.name).toEqual('aurelie');
+        expect(res === null || res === void 0 ? void 0 : res.email).toEqual('qwerty@gm.com');
+        expect(res === null || res === void 0 ? void 0 : res.password).toEqual('0987');
+        expect(res === null || res === void 0 ? void 0 : res.gender).toEqual('female');
+        expect(res === null || res === void 0 ? void 0 : res.bio).toEqual('blablabla');
+        expect(res === null || res === void 0 ? void 0 : res.nationality).toEqual('fr');
+        expect(res === null || res === void 0 ? void 0 : res.smartContractNumber).toEqual(['0xdeadbeef6']);
+    }));
+    test('Artist is logging in', () => __awaiter(void 0, void 0, void 0, function* () {
+        //given
+        jest
+            .spyOn(Artist_1.default, 'findOne')
+            .mockReturnValue(artistExample[0]);
+        jest.spyOn(bcrypt_1.default, 'compare').mockReturnValue({});
+        //when
+        const res = yield (0, ArtistService_1.artistConnection)({
+            email: 'aa@bb.com',
+            password: '1234',
+        });
+        //then
+        expect(res).toEqual({
+            artistId: '0',
+            token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NzU3OTIxMzksImV4cCI6MTY3NTg3ODUzOX0.Nlv_vBlWpkWbyYrMD6rPa89b5ykyAum9YzLg9wbOHRY',
+        });
     }));
 });
