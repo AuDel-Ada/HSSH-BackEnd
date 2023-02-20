@@ -17,6 +17,8 @@ const fixieData = host.split(new RegExp('[/(:\\/@/]+'));
 const connectDBwithFixie = async () => {
   try {
     await mongoose.connect(config.mongo.url, {
+      retryWrites: true,
+      w: 'majority',
       proxyUsername: fixieData[0],
       proxyPassword: fixieData[1],
       proxyHost: fixieData[2],
@@ -32,10 +34,10 @@ const connectDBwithFixie = async () => {
 
 connectDBwithFixie();
 
-console.log("UserName = ", fixieData[0])
-console.log("PassWord = ", fixieData[1])
-console.log("Host = ", fixieData[2])
-console.log("Port = ", fixieData[3])
+console.log('UserName = ', fixieData[0]);
+console.log('PassWord = ', fixieData[1]);
+console.log('Host = ', fixieData[2]);
+console.log('Port = ', fixieData[3]);
 
 // Only start the server if Mongo Connects
 const StartServer = () => {
