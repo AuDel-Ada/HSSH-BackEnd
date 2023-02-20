@@ -32,6 +32,11 @@ const connectDBwithFixie = async () => {
 
 connectDBwithFixie();
 
+console.log("UserName = ", fixieData[0])
+console.log("PassWord = ", fixieData[1])
+console.log("Host = ", fixieData[2])
+console.log("Port = ", fixieData[3])
+
 // Only start the server if Mongo Connects
 const StartServer = () => {
   router.use((req, res, next) => {
