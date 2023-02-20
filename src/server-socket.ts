@@ -11,24 +11,26 @@ const router = express();
 // Connect to MongoDB using Fixie Socks
 dotenv.config();
 
-const host: string = process.env.FIXIE_SOCKS_HOST || ''
+const host: string = process.env.FIXIE_SOCKS_HOST || '';
 const fixieData = host.split(new RegExp('[/(:\\/@/]+'));
 
-mongoose.connect(config.mongo.url,
-    {
+const connectDBwithFixie = async () => {
+  try {
+    await mongoose.connect(config.mongo.url, {
       proxyUsername: fixieData[0],
       proxyPassword: fixieData[1],
       proxyHost: fixieData[2],
-      proxyPort: Number(fixieData[3])
-     },
-    (error) => {
-      if (error){
-        console.log(error)
-      } else {
-        console.log('Connected to database')
-      }
-    }
-)
+      proxyPort: Number(fixieData[3]),
+    });
+    Logging.info('Connected to mongoDB');
+    StartServer();
+  } catch (error) {
+    Logging.error('Unable to connect:');
+    Logging.error(error);
+  }
+};
+
+connectDBwithFixie();
 
 // Only start the server if Mongo Connects
 const StartServer = () => {
