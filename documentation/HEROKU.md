@@ -8,10 +8,10 @@ There is only 1 CI, by Github Actions, to be sure that new code :
 
 
 STAGGING & PROD are deployed on Heroku
-## STAGGING
-https://house-show--back-stagging.herokuapp.com/
+## STAGING
+https://house-show--back-staging.herokuapp.com/
 by manual deploy of dev branch
--> On Heroku plateform, go to app house-show--back-stagging
+-> On Heroku plateform, go to app house-show--back-staging
 -> Go to deploy, at the end of the page, on manual deploy part, choose "dev"
 -> Then click on "deploy branch".
 
