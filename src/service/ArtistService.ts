@@ -18,9 +18,9 @@ export const updateOneArtist = async (artistId: string, update: IArtist) => {
       name: update.name || currentArtist.name,
       email: update.email || currentArtist.email,
       password: currentArtist.password,
-      gender: update.gender || currentArtist.gender,
+      pronouns: update.pronouns || currentArtist.pronouns,
       bio: update.bio || currentArtist.bio,
-      nationality: update.nationality || currentArtist.nationality,
+      country: update.country || currentArtist.country,
       smartContractNumber: update.smartContractNumber
         ? [...currentArtist.smartContractNumber, ...update.smartContractNumber]
         : currentArtist.smartContractNumber,
@@ -38,9 +38,9 @@ export const createArtist = async (newArtist: IArtist) => {
     name: newArtist.name,
     email: newArtist.email,
     password: hashedPassword,
-    gender: newArtist.gender,
+    pronouns: newArtist.pronouns,
     bio: newArtist.bio,
-    nationality: newArtist.nationality,
+    country: newArtist.country,
     smartContractNumber: newArtist.smartContractNumber,
   });
 

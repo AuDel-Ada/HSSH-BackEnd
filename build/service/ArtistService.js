@@ -32,9 +32,9 @@ const updateOneArtist = (artistId, update) => __awaiter(void 0, void 0, void 0, 
             name: update.name || currentArtist.name,
             email: update.email || currentArtist.email,
             password: currentArtist.password,
-            gender: update.gender || currentArtist.gender,
+            pronouns: update.pronouns || currentArtist.pronouns,
             bio: update.bio || currentArtist.bio,
-            nationality: update.nationality || currentArtist.nationality,
+            country: update.country || currentArtist.country,
             smartContractNumber: update.smartContractNumber
                 ? [...currentArtist.smartContractNumber, ...update.smartContractNumber]
                 : currentArtist.smartContractNumber,
@@ -51,9 +51,9 @@ const createArtist = (newArtist) => __awaiter(void 0, void 0, void 0, function* 
         name: newArtist.name,
         email: newArtist.email,
         password: hashedPassword,
-        gender: newArtist.gender,
+        pronouns: newArtist.pronouns,
         bio: newArtist.bio,
-        nationality: newArtist.nationality,
+        country: newArtist.country,
         smartContractNumber: newArtist.smartContractNumber,
     });
     return artistCreated.save();

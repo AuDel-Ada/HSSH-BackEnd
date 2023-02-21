@@ -3,9 +3,9 @@ export interface IArtist {
   name: string;
   email: string;
   password: string;
-  gender: string;
+  pronouns: string;
   bio: string;
-  nationality: string;
+  country: string;
   smartContractNumber: string[];
 }
 
@@ -15,10 +15,10 @@ const ArtistSchema: Schema = new Schema(
   {
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true,  },
-    gender: { type: String, required: false },
+    password: { type: String, required: true },
+    pronouns: { type: String, required: false },
     bio: { type: String, required: false },
-    nationality: { type: String, required: false },
+    country: { type: String, required: false },
     smartContractNumber: { type: Array, default: [] },
   },
   {

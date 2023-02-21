@@ -22,9 +22,9 @@ describe('Artist Service', () => {
             name: 'Alain',
             email: 'aa@bb.com',
             password: '1234',
-            gender: undefined,
+            pronouns: undefined,
             bio: undefined,
-            nationality: undefined,
+            country: undefined,
             smartContractNumber: ['0xdeadbeef1'],
         },
         {
@@ -32,9 +32,9 @@ describe('Artist Service', () => {
             name: 'Chaima',
             email: 'cc@dd.com',
             password: '5678',
-            gender: 'Male',
+            pronouns: 'Male',
             bio: 'foo',
-            nationality: 'usa',
+            country: 'usa',
             smartContractNumber: ['0xdeadbeef2', '0xdeadbeef3'],
         },
     ];
@@ -64,9 +64,9 @@ describe('Artist Service', () => {
         expect(res === null || res === void 0 ? void 0 : res.name).toEqual(artistExample[0].name);
         expect(res === null || res === void 0 ? void 0 : res.email).toEqual('abc@abc.com');
         expect(res === null || res === void 0 ? void 0 : res.password).toEqual(artistExample[0].password);
-        expect(res === null || res === void 0 ? void 0 : res.gender).toEqual(artistExample[0].gender);
+        expect(res === null || res === void 0 ? void 0 : res.pronouns).toEqual(artistExample[0].pronouns);
         expect(res === null || res === void 0 ? void 0 : res.bio).toEqual(artistExample[0].bio);
-        expect(res === null || res === void 0 ? void 0 : res.nationality).toEqual(artistExample[0].nationality);
+        expect(res === null || res === void 0 ? void 0 : res.country).toEqual(artistExample[0].country);
         expect(res === null || res === void 0 ? void 0 : res.smartContractNumber).toEqual(artistExample[0].smartContractNumber);
     }));
     test('Update one artist name but not password', () => __awaiter(void 0, void 0, void 0, function* () {
@@ -82,9 +82,9 @@ describe('Artist Service', () => {
         expect(res === null || res === void 0 ? void 0 : res.name).toEqual('a');
         expect(res === null || res === void 0 ? void 0 : res.email).toEqual(artistExample[0].email);
         expect(res === null || res === void 0 ? void 0 : res.password).toEqual(artistExample[0].password);
-        expect(res === null || res === void 0 ? void 0 : res.gender).toEqual(artistExample[0].gender);
+        expect(res === null || res === void 0 ? void 0 : res.pronouns).toEqual(artistExample[0].pronouns);
         expect(res === null || res === void 0 ? void 0 : res.bio).toEqual(artistExample[0].bio);
-        expect(res === null || res === void 0 ? void 0 : res.nationality).toEqual(artistExample[0].nationality);
+        expect(res === null || res === void 0 ? void 0 : res.country).toEqual(artistExample[0].country);
         expect(res === null || res === void 0 ? void 0 : res.smartContractNumber).toEqual(artistExample[0].smartContractNumber);
     }));
     test('Update one artist gender and nationality', () => __awaiter(void 0, void 0, void 0, function* () {
@@ -99,9 +99,9 @@ describe('Artist Service', () => {
         expect(res === null || res === void 0 ? void 0 : res.name).toEqual(artistExample[1].name);
         expect(res === null || res === void 0 ? void 0 : res.email).toEqual(artistExample[1].email);
         expect(res === null || res === void 0 ? void 0 : res.password).toEqual(artistExample[1].password);
-        expect(res === null || res === void 0 ? void 0 : res.gender).toEqual(artistExample[1].gender);
+        expect(res === null || res === void 0 ? void 0 : res.pronouns).toEqual(artistExample[1].pronouns);
         expect(res === null || res === void 0 ? void 0 : res.bio).toEqual(artistExample[1].bio);
-        expect(res === null || res === void 0 ? void 0 : res.nationality).toEqual('fr');
+        expect(res === null || res === void 0 ? void 0 : res.country).toEqual('fr');
         expect(res === null || res === void 0 ? void 0 : res.smartContractNumber).toEqual(artistExample[1].smartContractNumber);
     }));
     test('Add a smart contract number', () => __awaiter(void 0, void 0, void 0, function* () {
@@ -116,9 +116,9 @@ describe('Artist Service', () => {
         expect(res === null || res === void 0 ? void 0 : res.name).toEqual(artistExample[1].name);
         expect(res === null || res === void 0 ? void 0 : res.email).toEqual(artistExample[1].email);
         expect(res === null || res === void 0 ? void 0 : res.password).toEqual(artistExample[1].password);
-        expect(res === null || res === void 0 ? void 0 : res.gender).toEqual(artistExample[1].gender);
+        expect(res === null || res === void 0 ? void 0 : res.pronouns).toEqual(artistExample[1].pronouns);
         expect(res === null || res === void 0 ? void 0 : res.bio).toEqual(artistExample[1].bio);
-        expect(res === null || res === void 0 ? void 0 : res.nationality).toEqual(artistExample[1].nationality);
+        expect(res === null || res === void 0 ? void 0 : res.country).toEqual(artistExample[1].country);
         expect(res === null || res === void 0 ? void 0 : res.smartContractNumber).toEqual([
             '0xdeadbeef2',
             '0xdeadbeef3',
@@ -137,9 +137,9 @@ describe('Artist Service', () => {
         expect(res === null || res === void 0 ? void 0 : res.name).toEqual(artistExample[1].name);
         expect(res === null || res === void 0 ? void 0 : res.email).toEqual(artistExample[1].email);
         expect(res === null || res === void 0 ? void 0 : res.password).toEqual(artistExample[1].password);
-        expect(res === null || res === void 0 ? void 0 : res.gender).toEqual(artistExample[1].gender);
+        expect(res === null || res === void 0 ? void 0 : res.pronouns).toEqual(artistExample[1].pronouns);
         expect(res === null || res === void 0 ? void 0 : res.bio).toEqual('blablabla');
-        expect(res === null || res === void 0 ? void 0 : res.nationality).toEqual(artistExample[1].nationality);
+        expect(res === null || res === void 0 ? void 0 : res.country).toEqual(artistExample[1].country);
         expect(res === null || res === void 0 ? void 0 : res.smartContractNumber).toEqual(artistExample[1].smartContractNumber);
     }));
     test('Create Artist', () => __awaiter(void 0, void 0, void 0, function* () {
@@ -151,18 +151,18 @@ describe('Artist Service', () => {
             name: 'aurelie',
             email: 'qwerty@gm.com',
             password: '0987',
-            gender: 'female',
+            pronouns: 'female',
             bio: 'blablabla',
-            nationality: 'fr',
-            smartContractNumber: ['0xdeadbeef6']
+            country: 'fr',
+            smartContractNumber: ['0xdeadbeef6'],
         });
         //then
         expect(res === null || res === void 0 ? void 0 : res.name).toEqual('aurelie');
         expect(res === null || res === void 0 ? void 0 : res.email).toEqual('qwerty@gm.com');
         expect(res === null || res === void 0 ? void 0 : res.password).toEqual('0987');
-        expect(res === null || res === void 0 ? void 0 : res.gender).toEqual('female');
+        expect(res === null || res === void 0 ? void 0 : res.pronouns).toEqual('female');
         expect(res === null || res === void 0 ? void 0 : res.bio).toEqual('blablabla');
-        expect(res === null || res === void 0 ? void 0 : res.nationality).toEqual('fr');
+        expect(res === null || res === void 0 ? void 0 : res.country).toEqual('fr');
         expect(res === null || res === void 0 ? void 0 : res.smartContractNumber).toEqual(['0xdeadbeef6']);
     }));
     test('Artist is logging in', () => __awaiter(void 0, void 0, void 0, function* () {
