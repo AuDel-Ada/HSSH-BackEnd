@@ -8,28 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = __importDefault(require("mongoose"));
-const Artist_1 = __importDefault(require("../model/Artist"));
-const bcrypt_1 = __importDefault(require("bcrypt"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const ArtistService_1 = require("../service/ArtistService");
 const signupArtist = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const hashedPassword = yield bcrypt_1.default.hash(req.body.password, 10);
-    const artist = new Artist_1.default({
-        _id: new mongoose_1.default.Types.ObjectId(),
-        name: req.body.name,
-        email: req.body.email,
-        password: hashedPassword,
-        gender: req.body.gender,
-        bio: req.body.bio,
-        nationality: req.body.nationality,
-        smartContractNumber: req.body.smartContractNumber,
-    });
     try {
-        yield artist.save();
+        yield (0, ArtistService_1.createArtist)(req.body);
         return res.status(201).json({ message: 'Artist created' });
     }
     catch (error) {
@@ -38,27 +21,11 @@ const signupArtist = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 });
 const loginArtist = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const artist = yield Artist_1.default.findOne({ email: req.body.email });
-        if (!artist) {
-            return res.status(401).json({ message: 'Login/Password incorrect' });
+        const result = yield (0, ArtistService_1.artistConnection)(req.body);
+        if (!result) {
+            return res.status(401).json({ message: 'Login/Password not correct' });
         }
-        else {
-            try {
-                const valid = yield bcrypt_1.default.compare(req.body.password, artist.password);
-                if (!valid) {
-                    return res.status(401).json({ message: 'Login/Password incorrect' });
-                }
-                return res.status(200).json({
-                    artistId: artist._id,
-                    token: jsonwebtoken_1.default.sign({ artistId: artist._id }, 'RANDOM_TOKEN_SECRET', {
-                        expiresIn: '24h',
-                    }),
-                });
-            }
-            catch (error) {
-                return res.status(500).json({ error });
-            }
-        }
+        return res.status(200).json({ result });
     }
     catch (error) {
         return res.status(500).json({ error });
@@ -67,7 +34,7 @@ const loginArtist = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 const readArtist = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const artistId = req.params.artistId;
     try {
-        const artist = yield Artist_1.default.findById(artistId);
+        const artist = yield (0, ArtistService_1.readOneArtist)(artistId);
         if (!artist) {
             return res.status(404).json({ message: 'not found' });
         }
@@ -79,7 +46,7 @@ const readArtist = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 });
 const readAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const artists = yield Artist_1.default.find();
+        const artists = yield (0, ArtistService_1.readAllArtists)();
         return res.status(200).json({ artists: artists });
     }
     catch (error) {
@@ -87,13 +54,8 @@ const readAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 const readAllNfts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const artists = yield Artist_1.default.find();
-    const nfts = [];
     try {
-        for (const artist of artists) {
-            const currentNfts = artist.smartContractNumber;
-            nfts.push(...currentNfts);
-        }
+        const nfts = yield (0, ArtistService_1.allNfts)();
         return res.status(200).json({ nfts });
     }
     catch (error) {
@@ -103,19 +65,12 @@ const readAllNfts = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 const updateArtist = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const artistId = req.params.artistId;
     try {
-        const artistUpdated = yield Artist_1.default.findById(artistId);
-        if (artistUpdated) {
-            try {
-                artistUpdated.set(req.body);
-                yield artistUpdated.save();
-                return res.status(201).json({ artistUpdated });
-            }
-            catch (error) {
-                return res.status(500).json({ error });
-            }
+        try {
+            const newArtist = yield (0, ArtistService_1.updateOneArtist)(artistId, req.body);
+            return res.status(201).json({ artist: newArtist });
         }
-        else {
-            return res.status(404).json({ message: 'not found' });
+        catch (error) {
+            return res.status(500).json({ error });
         }
     }
     catch (error) {
@@ -123,10 +78,8 @@ const updateArtist = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 const deleteArtist = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const artistId = req.params.artistId;
     try {
-        const artistDeleted = yield Artist_1.default.findByIdAndDelete(artistId);
-        if (!artistDeleted) {
+        if (!(0, ArtistService_1.deleteOneArtist)(req.params.artistId)) {
             return res.status(404).json({ message: 'not found' });
         }
         return res.status(201).json({ message: 'Deleted' });
