@@ -9,7 +9,7 @@ const MONGO_URL =
 
 const SERVER_PORT = process.env.PORT
   ? Number(process.env.PORT)
-  : 1337;
+  : 8000;
 
 export const config = {
   mongo: {
