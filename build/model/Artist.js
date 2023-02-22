@@ -22,16 +22,17 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const dotenv = __importStar(require("dotenv"));
-dotenv.config();
-const app = (0, express_1.default)();
-const port = process.env.SERVER_PORT;
-app.get('/', (req, res) => {
-    res.send('Express + TypeScript Server');
+const mongoose_1 = __importStar(require("mongoose"));
+const ArtistSchema = new mongoose_1.Schema({
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    pronouns: { type: String, required: false },
+    bio: { type: String, required: false },
+    country: { type: String, required: false },
+    smartContractNumber: { type: Array, default: [] },
+}, {
+    versionKey: false,
 });
-app.listen(port, () => console.log(`⚡️[server]: Server is running at https://localhost:${port}`));
+exports.default = mongoose_1.default.model('Artist', ArtistSchema);
