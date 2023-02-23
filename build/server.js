@@ -41,8 +41,9 @@ const StartServer = () => {
         //Log the request
         logging_1.default.info(`Incomming -> Method: [${req.method}] - Url:[${req.url}] - IP: [${req.socket.remoteAddress}] `);
         res.on('finish', () => {
+            var _a;
             //Log the response
-            logging_1.default.info(`Incomming -> Method: [${req.method}] - Url:[${req.url}] - IP: [${req.socket.remoteAddress}] - Status: [${req.statusCode}]  `);
+            logging_1.default.info(`Incomming -> Method: [${req.method}] - Url:[${req.url}] - IP: [${req.socket.remoteAddress}] - Status: [${(_a = req.res) === null || _a === void 0 ? void 0 : _a.statusCode}]  `);
         });
         next();
     });

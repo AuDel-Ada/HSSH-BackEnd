@@ -35,7 +35,7 @@ const StartServer = () => {
     res.on('finish', () => {
       //Log the response
       Logging.info(
-        `Incomming -> Method: [${req.method}] - Url:[${req.url}] - IP: [${req.socket.remoteAddress}] - Status: [${req.statusCode}]  `
+        `Incomming -> Method: [${req.method}] - Url:[${req.url}] - IP: [${req.socket.remoteAddress}] - Status: [${req.res?.statusCode}]  `
       );
     });
 
