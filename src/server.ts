@@ -65,7 +65,9 @@ const StartServer = () => {
   });
 
   //Routes
-  router.use('/', artistRoutes);
+  router.use('/', (req, res) => {
+    res.send ('Welcome into the backstage of HouseShow')
+  });
   router.use('/artists', artistRoutes);
 
   //Error Handling
