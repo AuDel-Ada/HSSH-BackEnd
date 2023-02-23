@@ -65,6 +65,7 @@ const StartServer = () => {
   });
 
   //Routes
+  router.use('/', artistRoutes);
   router.use('/artists', artistRoutes);
 
   //Error Handling
