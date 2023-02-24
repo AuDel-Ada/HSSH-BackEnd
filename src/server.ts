@@ -35,7 +35,7 @@ const StartServer = () => {
     res.on('finish', () => {
       //Log the response
       Logging.info(
-        `Incomming -> Method: [${req.method}] - Url:[${req.url}] - IP: [${req.socket.remoteAddress}] - Status: [${req.statusCode}]  `
+        `Incomming -> Method: [${req.method}] - Url:[${req.url}] - IP: [${req.socket.remoteAddress}] - Status: [${req.res?.statusCode}]  `
       );
     });
 
@@ -66,6 +66,9 @@ const StartServer = () => {
 
   //Routes
   router.use('/artists', artistRoutes);
+  router.use('/', (req, res) => {
+    res.send (' -- Welcome into the backstage of HouseShow -- ')
+  });
 
   //Error Handling
   router.use((req, res) => {
