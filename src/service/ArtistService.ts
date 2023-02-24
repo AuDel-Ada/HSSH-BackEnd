@@ -25,7 +25,7 @@ export const updateOneArtist = async (artistId: string, update: IArtist) => {
         ? [...currentArtist.smartContractNumber, ...update.smartContractNumber]
         : currentArtist.smartContractNumber,
     };
-    await Artist.updateOne({ id: currentArtist.id }, newArtist);
+    await Artist.updateOne({ _id: currentArtist.id }, newArtist);
     return newArtist;
   }
 };
