@@ -22,7 +22,7 @@ export const updateOneArtist = async (artistId: string, update: IArtist) => {
       bio: update.bio || currentArtist.bio,
       country: update.country || currentArtist.country,
       smartContractNumber: update.smartContractNumber
-        ? [...currentArtist.smartContractNumber, ...update.smartContractNumber]
+        ? [...currentArtist.smartContractNumber, update.smartContractNumber]
         : currentArtist.smartContractNumber,
     };
     await Artist.updateOne({ _id: currentArtist.id }, newArtist);
