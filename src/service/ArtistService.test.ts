@@ -1,12 +1,9 @@
 import Artist from '../model/Artist';
 import {
-  artistConnection,
-  createArtist,
   readAllArtists,
   readOneArtist,
   updateOneArtist,
 } from './ArtistService';
-import bcrypt from 'bcrypt';
 
 describe('Artist Service', () => {
   const artistExample = [
@@ -116,7 +113,7 @@ describe('Artist Service', () => {
     jest.spyOn(Artist, 'updateOne').mockReturnValue({} as any);
     //when
     const res = await updateOneArtist('id', {
-      smartContractNumber: ['0xdeadbeef4'],
+      smartContractNumber: '0xdeadbeef4',
     } as any);
     //then
     expect(res?.name).toEqual(artistExample[1].name);
