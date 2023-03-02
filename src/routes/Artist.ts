@@ -8,11 +8,13 @@ dotenv.config();
 const router = express.Router();
 const AUTH_SECRET = process.env.AUTH_SECRET;
 
+
 router.post('/', controller.signupArtist);
 router.post('/login', controller.loginArtist);
 router.get('/nfts', controller.readAllNfts);
 router.get('/:artistId', controller.readArtist);
 router.get('/', controller.readAll);
+
 router.patch(
   '/:artistId',
   authorizationMiddleware(AUTH_SECRET as string),
