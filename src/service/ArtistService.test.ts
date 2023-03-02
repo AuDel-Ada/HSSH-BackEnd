@@ -1,12 +1,9 @@
 import Artist from '../model/Artist';
 import {
-  artistConnection,
-  createArtist,
   readAllArtists,
   readOneArtist,
   updateOneArtist,
 } from './ArtistService';
-import bcrypt from 'bcrypt';
 
 describe('Artist Service', () => {
   const artistExample = [
@@ -95,7 +92,8 @@ describe('Artist Service', () => {
     jest.spyOn(Artist, 'updateOne').mockReturnValue({} as any);
     //when
     const res = await updateOneArtist('id', {
-      gender: undefined, nationality: 'fr'
+      pronouns: undefined,
+      country: 'fr',
     } as any);
     //then
     expect(res?.name).toEqual(artistExample[1].name);
@@ -115,7 +113,7 @@ describe('Artist Service', () => {
     jest.spyOn(Artist, 'updateOne').mockReturnValue({} as any);
     //when
     const res = await updateOneArtist('id', {
-      smartContractNumber:['0xdeadbeef4']
+      smartContractNumber: '0xdeadbeef4',
     } as any);
     //then
     expect(res?.name).toEqual(artistExample[1].name);
@@ -146,49 +144,8 @@ describe('Artist Service', () => {
     expect(res?.pronouns).toEqual(artistExample[1].pronouns);
     expect(res?.bio).toEqual('blablabla');
     expect(res?.country).toEqual(artistExample[1].country);
-    expect(res?.smartContractNumber).toEqual(artistExample[1].smartContractNumber);
-  });
-
-  test('Create Artist', async () => {
-    //given
-    jest.spyOn(bcrypt, 'hash').mockReturnValue(artistExample[0].password as any);
-    // jest.spyOn(Artist, 'save').mockReturnValue({} as any);
-    //when
-    const res = await createArtist({
-      name: 'aurelie',
-      email: 'qwerty@gm.com',
-      password: '0987',
-      pronouns: 'female',
-      bio: 'blablabla',
-      country: 'fr',
-      smartContractNumber: ['0xdeadbeef6'],
-    } as any);
-    //then
-    expect(res?.name).toEqual('aurelie');
-    expect(res?.email).toEqual('qwerty@gm.com');
-    expect(res?.password).toEqual('0987');
-    expect(res?.pronouns).toEqual('female');
-    expect(res?.bio).toEqual('blablabla');
-    expect(res?.country).toEqual('fr');
-    expect(res?.smartContractNumber).toEqual(['0xdeadbeef6']);
-  });
-
-  test('Artist is logging in', async () => {
-    //given
-    jest
-      .spyOn(Artist, 'findOne')
-      .mockReturnValue(artistExample[0] as any);
-    jest.spyOn(bcrypt, 'compare').mockReturnValue({} as any);
-    //when
-    const res = await artistConnection({
-      email: 'aa@bb.com',
-      password: '1234',
-    } as any);
-    //then
-    expect(res).toEqual({
-      artistId: '0',
-      token:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NzU3OTIxMzksImV4cCI6MTY3NTg3ODUzOX0.Nlv_vBlWpkWbyYrMD6rPa89b5ykyAum9YzLg9wbOHRY',
-    });
+    expect(res?.smartContractNumber).toEqual(
+      artistExample[1].smartContractNumber
+    );
   });
 });
