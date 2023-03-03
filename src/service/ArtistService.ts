@@ -3,6 +3,9 @@ import Artist, { IArtist } from '../model/Artist';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
+import dotenv from 'dotenv';
+dotenv.config();
+
 export const readAllArtists = () => {
   return Artist.find();
 };
@@ -57,7 +60,7 @@ export const artistConnection = async (artistInfo: IArtist) => {
   } else {
     return {
       artistId: artist._id,
-      token: jwt.sign({ artistId: artist._id }, 'RANDOM_TOKEN_SECRET', {
+      token: jwt.sign({ artistId: artist._id }, process.env.AUTH_SECRET as string, {
         expiresIn: '24h',
       }),
     };
